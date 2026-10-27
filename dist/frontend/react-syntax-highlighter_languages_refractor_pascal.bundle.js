@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunk_mdts_frontend"] = self["webpackChunk_mdts_frontend"] || []).push([["react-syntax-highlighter_languages_refractor_pascal"],{
+
+/***/ "./node_modules/refractor/lang/pascal.js"
+/*!***********************************************!*\
+  !*** ./node_modules/refractor/lang/pascal.js ***!
+  \***********************************************/
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ pascal)\n/* harmony export */ });\n// @ts-nocheck\n/**\n * @import {Refractor} from '../lib/core.js'\n */\npascal.displayName = 'pascal'\npascal.aliases = ['objectpascal']\n\n/** @param {Refractor} Prism */\nfunction pascal(Prism) {\n  // Based on Free Pascal\n\n  /* TODO\nSupport inline asm ?\n*/\n\n  Prism.languages.pascal = {\n    directive: {\n      pattern: /\\{\\$[\\s\\S]*?\\}/,\n      greedy: true,\n      alias: ['marco', 'property']\n    },\n    comment: {\n      pattern: /\\(\\*[\\s\\S]*?\\*\\)|\\{[\\s\\S]*?\\}|\\/\\/.*/,\n      greedy: true\n    },\n    string: {\n      pattern: /(?:'(?:''|[^'\\r\\n])*'(?!')|#[&$%]?[a-f\\d]+)+|\\^[a-z]/i,\n      greedy: true\n    },\n    asm: {\n      pattern: /(\\basm\\b)[\\s\\S]+?(?=\\bend\\s*[;[])/i,\n      lookbehind: true,\n      greedy: true,\n      inside: null // see below\n    },\n    keyword: [\n      {\n        // Turbo Pascal\n        pattern:\n          /(^|[^&])\\b(?:absolute|array|asm|begin|case|const|constructor|destructor|do|downto|else|end|file|for|function|goto|if|implementation|inherited|inline|interface|label|nil|object|of|operator|packed|procedure|program|record|reintroduce|repeat|self|set|string|then|to|type|unit|until|uses|var|while|with)\\b/i,\n        lookbehind: true\n      },\n      {\n        // Free Pascal\n        pattern: /(^|[^&])\\b(?:dispose|exit|false|new|true)\\b/i,\n        lookbehind: true\n      },\n      {\n        // Object Pascal\n        pattern:\n          /(^|[^&])\\b(?:class|dispinterface|except|exports|finalization|finally|initialization|inline|library|on|out|packed|property|raise|resourcestring|threadvar|try)\\b/i,\n        lookbehind: true\n      },\n      {\n        // Modifiers\n        pattern:\n          /(^|[^&])\\b(?:absolute|abstract|alias|assembler|bitpacked|break|cdecl|continue|cppdecl|cvar|default|deprecated|dynamic|enumerator|experimental|export|external|far|far16|forward|generic|helper|implements|index|interrupt|iochecks|local|message|name|near|nodefault|noreturn|nostackframe|oldfpccall|otherwise|overload|override|pascal|platform|private|protected|public|published|read|register|reintroduce|result|safecall|saveregisters|softfloat|specialize|static|stdcall|stored|strict|unaligned|unimplemented|varargs|virtual|write)\\b/i,\n        lookbehind: true\n      }\n    ],\n    number: [\n      // Hexadecimal, octal and binary\n      /(?:[&%]\\d+|\\$[a-f\\d]+)/i,\n      // Decimal\n      /\\b\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?/i\n    ],\n    operator: [\n      /\\.\\.|\\*\\*|:=|<[<=>]?|>[>=]?|[+\\-*\\/]=?|[@^=]/,\n      {\n        pattern:\n          /(^|[^&])\\b(?:and|as|div|exclude|in|include|is|mod|not|or|shl|shr|xor)\\b/,\n        lookbehind: true\n      }\n    ],\n    punctuation: /\\(\\.|\\.\\)|[()\\[\\]:;,.]/\n  }\n  Prism.languages.pascal.asm.inside = Prism.languages.extend('pascal', {\n    asm: undefined,\n    keyword: undefined,\n    operator: undefined\n  })\n  Prism.languages.objectpascal = Prism.languages.pascal\n}\n\n\n//# sourceURL=webpack://@mdts/frontend/./node_modules/refractor/lang/pascal.js?\n}");
+
+/***/ }
+
+}]);

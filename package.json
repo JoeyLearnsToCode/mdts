@@ -1,0 +1,54 @@
+{
+  "name": "mdts",
+  "version": "0.21.1",
+  "packageManager": "npm@11.5.1",
+  "description": "A markdown preview server.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=22.22"
+  },
+  "bin": {
+    "mdts": "./bin/mdts"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unhappychoice/mdts.git"
+  },
+  "keywords": [
+    "markdown",
+    "preview",
+    "server",
+    "cli",
+    "live-reload"
+  ],
+  "author": "unhappychoice",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unhappychoice/mdts/issues"
+  },
+  "homepage": "https://mdts.unhappychoice.com",
+  "dependencies": {
+    "chalk": "^6.0.0",
+    "chokidar": "^6.0.0",
+    "commander": "^15.0.0",
+    "express": "^5.1.0",
+    "github-slugger": "^2.0.0",
+    "glob": "^13.0.1",
+    "markdown-it": "^15.0.0",
+    "node-plantuml-back": "^1.1.4",
+    "open": "^11.0.0",
+    "plantuml": "^0.0.2",
+    "plantuml-encoder": "^1.4.0",
+    "simple-git": "^4.0.2",
+    "ws": "^8.18.3"
+  },
+  "overrides": {
+    "jest-runner-eslint": {
+      "eslint": "^10.5.0"
+    }
+  }
+}
