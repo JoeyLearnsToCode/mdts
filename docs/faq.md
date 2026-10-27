@@ -72,7 +72,7 @@ All settings persist across browser sessions and require no manual configuration
 
 ## ❓ Can I filter which files are shown?
 
-Yes. Use the `--glob` (`-g`) option to specify glob patterns. Only matching markdown files will appear in the file tree:
+Yes. Use the `--glob` (`-g`) option to specify glob patterns. Only matching files will appear in the file tree:
 
 ```bash
 npx mdts ./project -g 'docs/**/*.md' 'README.md'
@@ -88,7 +88,7 @@ Patterns follow standard glob syntax (powered by the [`glob`](https://www.npmjs.
 - `docs/**/*.md` — all `.md` files recursively under `docs/`
 - `packages/*/README.md` — `README.md` in each direct subdirectory of `packages/`
 
-Only files ending in `.md` or `.markdown` are included, even if the pattern matches other files.
+Every file matching the pattern is included, not only Markdown: non-Markdown files (source code, config, ...) are shown in the file tree and rendered as syntax-highlighted source when opened.
 
 ## ❓ How is this different from tools like `grip`, `markserv`, or `md-fileserver`?
 

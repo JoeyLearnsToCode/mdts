@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import { fetchContent } from '../store/slices/contentSlice';
 import { fetchFileTree } from '../store/slices/fileTreeSlice';
 import { fetchOutline } from '../store/slices/outlineSlice';
+import { fetchRawFile } from '../store/slices/rawFileSlice';
 import { AppDispatch } from '../store/store';
+import { getFileKind } from '../utils/fileKind';
 
 type Event = { type: 'reload-content' } | { type: 'reload-tree' };
 
@@ -36,8 +38,12 @@ export const useWebSocket = (currentPath: string | null): void => {
 
       if (message.type === 'reload-content') {
         if (!currentPathRef.current) return;
-        dispatch(fetchContent(currentPathRef.current));
-        dispatch(fetchOutline(currentPathRef.current));
+        if (getFileKind(currentPathRef.current) === 'code') {
+          dispatch(fetchRawFile(currentPathRef.current));
+        } else {
+          dispatch(fetchContent(currentPathRef.current));
+          dispatch(fetchOutline(currentPathRef.current));
+        }
       } else if (message.type === 'reload-tree') {
         dispatch(fetchFileTree());
       }

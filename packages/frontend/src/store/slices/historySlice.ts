@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getFileKind } from '../../utils/fileKind';
 import type { AppDispatch } from '../store';
 
 interface HistoryState {
@@ -21,10 +22,8 @@ export const parseHistoryFromPathname = (pathname: string): HistoryState => {
   }
 
   const path = decodePath(rawPath);
-  const fileExtensions = ['.md', '.markdown'];
-  const isFile = fileExtensions.some((ext) => path.toLowerCase().endsWith(ext));
 
-  return { currentPath: path, isDirectory: !isFile };
+  return { currentPath: path, isDirectory: getFileKind(path) === 'directory' };
 };
 
 const initialState: HistoryState = {

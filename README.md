@@ -68,7 +68,7 @@ npx mdts [directory] [options]
 | Option              | Description                                          | Example                        |
 | ------------------- | ---------------------------------------------------- | ------------------------------ |
 | `[directory]`       | Directory to serve (default `.`)                     | `./docs`                       |
-| `--glob`, `-g`      | Glob patterns to filter markdown files               | `-g 'docs/*.md' 'specs/*.md'` |
+| `--glob`, `-g`      | Glob patterns to filter files                         | `-g 'docs/*.md' 'internal/**/*.go'` |
 | `--host`, `-H`      | Host to listen on (default `localhost`)              | `0.0.0.0`                      |
 | `--port`, `-p`      | Port to serve on (default `8521`)                    | `8000`                         |
 | `--silent`, `-s`    | Suppress server logs (default `false`)               |                                |
@@ -101,6 +101,7 @@ Experience mdts in action with real examples and interactive features.
 - [Use Cases](docs/usecases.md)
 - [Markdown Features](docs/markdown_features.md)  
 - [Frontend Features](docs/frontend_features.md)
+- [Non-Markdown Files (Source Code Viewer)](docs/non_markdown_files.md)
 - [Advanced Configuration](docs/configuration.md)
 - [API Reference](docs/api.md)
 - [Troubleshooting](docs/troubleshooting.md)

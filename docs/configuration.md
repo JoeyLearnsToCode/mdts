@@ -139,12 +139,16 @@ rm ~/.config/mdts/config.json
 ## CLI Integration
 
 ### Glob Patterns
-Use the `--glob` (`-g`) option to filter which markdown files are shown in the file tree.
+Use the `--glob` (`-g`) option to filter which files are shown in the file tree.
 Patterns are resolved relative to the specified directory.
+Patterns are not limited to Markdown: matched source files are listed too and are rendered as syntax-highlighted code.
 
 ```bash
 # Show only files matching a pattern
 npx mdts ./project -g 'docs/**/*.md'
+
+# Documentation together with the code it refers to
+npx mdts ./project -g 'docs/**/*.md' 'internal/**/*.go'
 
 # Multiple patterns
 npx mdts ./monorepo -g 'packages/*/README.md' 'docs/*.md'

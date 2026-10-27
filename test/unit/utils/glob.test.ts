@@ -21,9 +21,9 @@ describe('resolveGlobPatterns', () => {
     expect(result.filePatterns).toEqual(['docs/guide.md', 'docs/api.md']);
   });
 
-  it('should filter out non-markdown files from glob results', () => {
+  it('should keep non-markdown files matched by glob patterns', () => {
     const result = resolveGlobPatterns('/mock/project', ['**/*.md']);
-    expect(result.filePatterns).toEqual(['docs/guide.md', 'docs/api.md']);
+    expect(result.filePatterns).toEqual(['docs/guide.md', 'docs/api.md', 'src/readme.txt']);
   });
 
   it('should support .markdown extension', () => {

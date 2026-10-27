@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchData } from '../../api';
+import { encodePath } from '../../utils/path';
 import { isStaleRequest } from '../isStaleRequest';
 
 interface ContentState {
@@ -17,9 +18,6 @@ const initialState: ContentState = {
   scrollPosition: 0,
   latestRequestId: null,
 };
-
-const encodePath = (path: string): string =>
-  path.split('/').map(encodeURIComponent).join('/');
 
 const markdownApiUrl = (path: string | null): string => (
   path

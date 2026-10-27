@@ -1,3 +1,26 @@
+// Files served as-is; everything else with an extension is rendered by the web app.
+export const ASSET_FILE_EXTENSIONS = [
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.gif',
+  '.bmp',
+  '.ico',
+  '.webp',
+  '.svg',
+  '.pdf',
+  '.mp3',
+  '.mp4',
+  '.webm',
+  '.woff',
+  '.woff2',
+  '.ttf',
+  '.eot',
+  '.zip',
+  '.gz',
+  '.tar',
+  '.7z',
+];
 
 export const EXCLUDED_DIRECTORIES = [
   'node_modules',

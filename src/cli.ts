@@ -25,7 +25,7 @@ export class CLI {
           .option('-p, --port <port>', 'port to serve on (use "auto" to find an available port)', String(DEFAULT_PORT))
           .option('-s, --silent', 'suppress server logs', false)
           .option('--no-open', 'do not open the browser automatically')
-          .option('-g, --glob <patterns...>', 'glob patterns to filter markdown files (e.g. "docs/*.md")')
+          .option('-g, --glob <patterns...>', 'glob patterns to filter files (e.g. "docs/*.md", "internal/**/*.go")')
           .argument('[directory]', 'directory to serve', DEFAULT_DIRECTORY)
           .action(async (directory, options) => {
             logger.setSilent(options.silent);

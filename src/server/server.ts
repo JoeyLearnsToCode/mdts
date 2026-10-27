@@ -1,8 +1,11 @@
 import express from 'express';
 import * as fs from 'fs';
 import path from 'path';
+import { ASSET_FILE_EXTENSIONS } from '../constants';
 import { logger } from '../utils/logger';
+import { resolveWithinDirectory } from '../utils/path';
 import { ServerContext } from './context';
+import { fileRouter } from './routes/file';
 import { fileTreeRouter } from './routes/filetree';
 import { outlineRouter } from './routes/outline';
 import { getConfig, saveConfig } from './config';
@@ -11,6 +14,17 @@ import { diffRouter, diffPrevRouter } from './routes/diff';
 import { plantumlRouter } from './routes/plantuml';
 
 const MAX_PORT_RETRIES = 10;
+
+// Markdown and existing source files are rendered by the web app, assets are served as-is.
+const shouldRenderApp = (filePath: string, isDirectory: boolean, fileExists: boolean): boolean => {
+  if (isDirectory) return true;
+
+  const extension = path.extname(filePath).toLowerCase();
+  if (extension === '') return false;
+  if (extension === '.md' || extension === '.markdown') return true;
+
+  return fileExists && !ASSET_FILE_EXTENSIONS.includes(extension);
+};
 
 export const serve = (
   context: ServerContext,
@@ -69,6 +83,7 @@ export const createApp = (
   // Define API
   app.use('/api/filetree', fileTreeRouter(context));
   app.use('/api/outline', outlineRouter(directory));
+  app.use('/api/file', fileRouter(directory));
   app.use('/api/diff-prev', diffPrevRouter(context));
   app.use('/api/diff', diffRouter(context));
   app.use('/api/plantuml', plantumlRouter());
@@ -91,18 +106,16 @@ export const createApp = (
   });
 
   app.use('/api/markdown', (req, res, next) => {
-    // Decode the URI component to handle encoded characters in the path
-    const decodedPath = decodeURIComponent(req.path);
     // Normalize the path to resolve '..' and '.' segments
-    const normalizedPath = path.normalize(decodedPath);
+    const normalizedPath = path.normalize(decodeURIComponent(req.path));
 
     // Construct the full file path
-    const filePath = path.join(directory, normalizedPath);
+    const filePath = resolveWithinDirectory(directory, req.path);
 
     // Security check: Ensure the resolved path is within the designated directory
     // This prevents path traversal attacks (e.g., accessing files outside 'directory')
-    if (!filePath.startsWith(directory)) {
-      logger.error(`🚫 Attempted path traversal: ${filePath}`);
+    if (!filePath) {
+      logger.error(`🚫 Attempted path traversal: ${path.join(directory, normalizedPath)}`);
       return res.status(403).send('Forbidden');
     }
 
@@ -126,18 +139,16 @@ export const createApp = (
   app.get('*splat', async (req, res) => {
     const filePath = path.join(directory, req.path);
     let isDirectory = false;
+    let fileExists = false;
     try {
       const stats = fs.statSync(filePath);
       isDirectory = stats.isDirectory();
+      fileExists = true;
     } catch {
       // File or directory does not exist, proceed as if it's a file
     }
 
-    if (
-      isDirectory ||
-      req.path.toLowerCase().endsWith('.md') ||
-      req.path.toLowerCase().endsWith('.markdown')
-    ) {
+    if (shouldRenderApp(req.path, isDirectory, fileExists)) {
       return res.sendFile('index.html', { root: path.join(currentLocation, '../frontend') });
     } else {
       return res.sendFile(req.path, { root: directory }, (err) => {

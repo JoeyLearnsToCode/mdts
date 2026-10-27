@@ -9,6 +9,7 @@ import Outline from './components/RightPane/Outline';
 import useIsMobile from './hooks/useIsMobile';
 import { toggleFileTree, toggleOutline, } from './store/slices/appSettingSlice';
 import { RootState } from './store/store';
+import { getFileKind } from './utils/fileKind';
 
 interface LayoutProps {
   onSettingsClick: () => void;
@@ -97,7 +98,7 @@ const Layout: React.FC<LayoutProps> = ({ onSettingsClick }) => {
           scrollToId={scrollToId}
         />
         <Outline
-          filePath={isDirectory ? null : currentPath}
+          filePath={isDirectory || getFileKind(currentPath) === 'code' ? null : currentPath}
           onItemClick={handleOutlineItemClick}
           isOpen={outlineIsOpen}
           onToggle={handleToggleOutline}

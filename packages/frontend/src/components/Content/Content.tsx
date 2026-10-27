@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { getFileKind } from '../../utils/fileKind';
+import CodeContent from './CodeContent/CodeContent';
 import DirectoryContent from './DirectoryContent/DirectoryContent';
 import MarkdownContent from './MarkdownContent/MarkdownContent';
 import { Box } from '@mui/material';
@@ -34,6 +36,16 @@ const Content: React.FC<ContentProps> = ({ onFileSelect, onDirectorySelect, scro
     }
   }, [loading, scrollPosition]);
 
+  const renderContent = () => {
+    if (currentPath && isDirectory) {
+      return <DirectoryContent onFileSelect={onFileSelect} onDirectorySelect={onDirectorySelect} />;
+    }
+    if (getFileKind(currentPath) === 'code') {
+      return <CodeContent onDirectorySelect={onDirectorySelect} />;
+    }
+    return <MarkdownContent onDirectorySelect={onDirectorySelect} scrollToId={scrollToId} />;
+  };
+
   return (
     <Box
       sx={{
@@ -55,11 +67,7 @@ const Content: React.FC<ContentProps> = ({ onFileSelect, onDirectorySelect, scro
           minWidth: 0,
         }}
       >
-        {currentPath && isDirectory ? (
-          <DirectoryContent onFileSelect={onFileSelect} onDirectorySelect={onDirectorySelect} />
-        ) : (
-          <MarkdownContent onDirectorySelect={onDirectorySelect} scrollToId={scrollToId} />
-        )}
+        {renderContent()}
       </Box>
     </Box>
   );

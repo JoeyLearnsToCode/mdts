@@ -3,6 +3,7 @@ import contentReducer from './slices/contentSlice';
 import diffReducer from './slices/diffSlice';
 import fileTreeReducer from './slices/fileTreeSlice';
 import outlineReducer from './slices/outlineSlice';
+import rawFileReducer from './slices/rawFileSlice';
 import appSettingReducer, { saveAppSetting } from './slices/appSettingSlice';
 import historyReducer, { parseHistoryFromPathname } from './slices/historySlice';
 import configReducer from './slices/configSlice';
@@ -55,6 +56,7 @@ export const store = configureStore({
     diff: diffReducer,
     fileTree: fileTreeReducer,
     outline: outlineReducer,
+    rawFile: rawFileReducer,
     appSetting: appSettingReducer,
     history: historyReducer,
     config: configReducer,

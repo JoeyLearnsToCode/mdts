@@ -1,7 +1,8 @@
-import { ArticleOutlined } from '@mui/icons-material';
+import { ArticleOutlined, CodeOutlined } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import { TreeItem } from '@mui/x-tree-view';
 import React, { useCallback } from 'react';
+import { getFileKind } from '../../../utils/fileKind';
 import { FileTreeItem } from './types';
 
 interface FileTreeItemViewProps {
@@ -13,6 +14,7 @@ interface FileTreeItemViewProps {
 export const FileTreeItemView: React.FC<FileTreeItemViewProps> = ({ fileItem, onFileSelect, getStatusColor }) => {
   const fileName = fileItem.path.split('/').pop();
   const handleClick = useCallback(() => onFileSelect(fileItem.path), [fileItem, onFileSelect]);
+  const FileIcon = getFileKind(fileItem.path) === 'document' ? ArticleOutlined : CodeOutlined;
 
   return (
     <TreeItem
@@ -20,7 +22,7 @@ export const FileTreeItemView: React.FC<FileTreeItemViewProps> = ({ fileItem, on
       itemId={fileItem.path}
       label={
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <ArticleOutlined sx={{ mr: 1, fontSize: 'small' }} />
+          <FileIcon sx={{ mr: 1, fontSize: 'small' }} />
           <Typography variant="body2" sx={{ fontSize: '0.875rem', color: getStatusColor(fileItem.status) }}>
             {fileName}
           </Typography>
