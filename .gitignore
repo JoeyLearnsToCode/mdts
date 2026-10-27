@@ -122,3 +122,4 @@ scripts/*.js
 .envrc
 .claude
 dist
+dist-package

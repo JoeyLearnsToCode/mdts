@@ -46,6 +46,18 @@ npx mdts
 This starts a local server at http://localhost:8521 and opens your browser.
 Your current directory becomes a browsable Markdown tree.
 
+## 📥 Install from GitHub
+
+Installing from a git URL only works with the `dist` branch, because the build
+output is not committed to `main` and package managers do not run build scripts
+for git-hosted packages. The `dist` branch is rebuilt by CI on every push to
+`main` (see [`.github/workflows/build-dist.yml`](.github/workflows/build-dist.yml)).
+
+```bash
+pnpm install -g github:JoeyLearnsToCode/mdts#dist
+npm  install -g github:JoeyLearnsToCode/mdts#dist
+```
+
 ## 💡 Use Cases
 
 - Reviewing AI-generated docs  
